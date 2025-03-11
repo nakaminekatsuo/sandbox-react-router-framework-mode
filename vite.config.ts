@@ -1,11 +1,15 @@
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import babel from "vite-plugin-babel";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 // @ts-ignore
 import babelConfig from "./babel.config.cjs";
 
 export default defineConfig({
-  plugins: [react({ babel: babelConfig }), reactRouter(), tsconfigPaths()],
+  plugins: [
+    babel({ filter: /\.tsx?$/, babelConfig }),
+    reactRouter(),
+    tsconfigPaths(),
+  ],
 });

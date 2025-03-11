@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   presets: [["@babel/preset-react", { runtime: "automatic" }]],
   plugins: [
@@ -5,6 +7,9 @@ module.exports = {
     [
       "@stylexjs/babel-plugin",
       {
+        aliases: {
+          "~/*": [path.join(__dirname, "./app/*")],
+        },
         dev: process.env.NODE_ENV === "development",
         test: process.env.NODE_ENV === "test",
         runtimeInjection: false,

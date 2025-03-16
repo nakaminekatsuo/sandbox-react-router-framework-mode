@@ -1,6 +1,7 @@
 import { getEnv } from "~/middleware/env.server";
 import type { Route } from "./+types/_index";
-import { Welcome } from "./_welcome/welcome";
+import { Main } from "~/domain/layout/main";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -15,6 +16,13 @@ export function loader({ context }: Route.LoaderArgs) {
   return {};
 }
 
-export default function Home() {
-  return <Welcome />;
+export default function Page() {
+  return (
+    <Main>
+      <h2>toppage</h2>
+      <div>
+        <Link to="/blog">blog</Link>
+      </div>
+    </Main>
+  );
 }

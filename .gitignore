@@ -4,3 +4,10 @@
 # React Router
 /.react-router/
 /build/
+
+# env
+.env*
+!.env.example
+
+# postgres
+postgres_data

@@ -5,7 +5,7 @@ import { color, space } from "~/lib/stylex/tokens.stylex";
 type Props = {
   slug: string;
   title: string;
-  createdAt: string;
+  createdAt: Date;
   content: string;
 };
 export const Post = ({ slug, title, createdAt, content }: Props) => {
@@ -21,7 +21,7 @@ export const Post = ({ slug, title, createdAt, content }: Props) => {
         </Link>
       </h3>
       <div {...stylex.props(styles.infoPart)}>
-        <p {...stylex.props(styles.createdAt)}>{createdAt}</p>
+        <p {...stylex.props(styles.createdAt)}>{createdAt.toDateString()}</p>
         <Link
           {...stylex.props(styles.link)}
           prefetch="intent"

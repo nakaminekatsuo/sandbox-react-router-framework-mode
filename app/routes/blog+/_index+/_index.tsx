@@ -2,9 +2,10 @@ import * as stylex from "@stylexjs/stylex";
 import type { Route } from "./+types/_index";
 import { Main } from "~/domain/layout/main";
 import React from "react";
-import { color, space } from "~/lib/stylex/tokens.stylex";
+import { color, space, thickness } from "~/lib/stylex/tokens.stylex";
 import { Post } from "./_post";
 import { Link } from "react-router";
+import { getDB } from "~/db/getDB";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,22 +14,18 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export function loader({}: Route.LoaderArgs) {
+export async function loader({}: Route.LoaderArgs) {
+  const db = getDB();
+  const posts = await db.query.posts.findMany({
+    columns: {
+      slug: true,
+      title: true,
+      content: true,
+      createdAt: true,
+    },
+  });
   return {
-    posts: [
-      {
-        slug: "hello-world",
-        title: "Hello, world!",
-        createdAt: "2024-01-01",
-        content: "This is my first post.",
-      },
-      {
-        slug: "second-post",
-        title: "Second post",
-        createdAt: "2024-01-01",
-        content: "This is my second post.",
-      },
-    ],
+    posts,
   };
 }
 
@@ -43,7 +40,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
         </div>
         {loaderData.posts.map((post) => (
           <React.Fragment key={post.slug}>
-            <Post key={post.title} {...post} />
+            <Post {...post} />
             <div {...stylex.props(styles.line)} />
           </React.Fragment>
         ))}
@@ -62,7 +59,7 @@ const styles = stylex.create({
     margin: 0,
   },
   line: {
-    height: 1,
+    height: thickness.xxs,
     backgroundColor: color.line,
   },
 });

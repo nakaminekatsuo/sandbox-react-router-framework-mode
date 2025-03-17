@@ -1,9 +1,8 @@
 const path = require("path");
 
 module.exports = {
-  presets: [["@babel/preset-react", { runtime: "automatic" }]],
+  presets: ["@babel/preset-typescript"],
   plugins: [
-    ["@babel/plugin-syntax-typescript", { isTSX: true }],
     [
       "@stylexjs/babel-plugin",
       {

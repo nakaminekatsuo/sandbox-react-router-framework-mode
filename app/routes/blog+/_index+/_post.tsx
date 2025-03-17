@@ -13,14 +13,24 @@ export const Post = ({ slug, title, createdAt, content }: Props) => {
     <div {...stylex.props(styles.root)}>
       <h3 {...stylex.props(styles.title)}>
         <Link
-          {...stylex.props(styles.link)}
+          {...stylex.props(styles.transparentLink)}
           prefetch="intent"
           to={href("/blog/:slug", { slug })}
         >
           {title}
         </Link>
       </h3>
-      <p {...stylex.props(styles.createdAt)}>{createdAt}</p>
+      <div {...stylex.props(styles.infoPart)}>
+        <p {...stylex.props(styles.createdAt)}>{createdAt}</p>
+        <Link
+          {...stylex.props(styles.link)}
+          prefetch="intent"
+          // to={href("/blog/:slug/edit", { slug })}
+          to="/" // TODO: 編集ページのリンクを追加する
+        >
+          [edit]
+        </Link>
+      </div>
       <p {...stylex.props(styles.content)}>{content}</p>
     </div>
   );
@@ -44,9 +54,18 @@ const styles = stylex.create({
     margin: 0,
     color: color.subText,
   },
-  link: {
+  transparentLink: {
     margin: 0,
     color: "inherit",
     textDecorationColor: color.lightPrimary,
+  },
+  link: {
+    margin: 0,
+    color: color.secondary,
+    textDecorationColor: color.secondary,
+  },
+  infoPart: {
+    display: "flex",
+    gap: space.sm,
   },
 });

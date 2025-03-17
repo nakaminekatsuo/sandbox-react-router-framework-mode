@@ -4,6 +4,7 @@ import { Main } from "~/domain/layout/main";
 import React from "react";
 import { color, space } from "~/lib/stylex/tokens.stylex";
 import { Post } from "./_post";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -37,6 +38,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       <div {...stylex.props(styles.root)}>
         <div>
           <h2 {...stylex.props(styles.title)}>Blog</h2>
+          <Link to="/blog/new">New post</Link>
           <div {...stylex.props(styles.line)} />
         </div>
         {loaderData.posts.map((post) => (
@@ -52,7 +54,6 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 
 const styles = stylex.create({
   root: {
-    paddingTop: space.lg,
     display: "flex",
     flexDirection: "column",
     gap: space.md,

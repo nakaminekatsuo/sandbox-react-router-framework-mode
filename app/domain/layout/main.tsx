@@ -7,6 +7,7 @@ export const Main = ({ children }: { children: React.ReactNode }) => {
 
 const styles = stylex.create({
   root: {
+    paddingTop: space.lg,
     paddingLeft: space.sm,
     paddingRight: space.sm,
   },

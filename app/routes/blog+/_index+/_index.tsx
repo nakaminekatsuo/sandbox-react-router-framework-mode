@@ -3,9 +3,9 @@ import type { Route } from "./+types/_index";
 import { Main } from "~/domain/layout/main";
 import React from "react";
 import { color, space, thickness } from "~/lib/stylex/tokens.stylex";
-import { Post } from "./_post";
+import { Post } from "../_post";
 import { Link } from "react-router";
-import { createDBInstance } from "~/db/create-db-instance";
+import { getDBInstance } from "~/db/get-db-instance";
 import { getDB } from "~/middleware/db.server";
 
 export function meta({}: Route.MetaArgs) {

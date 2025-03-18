@@ -2,6 +2,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { relations } from "./relations";
 import { dbUrl } from "drizzle.config";
 
-export const createDBInstance = () => drizzle(dbUrl, { relations });
+const dbInstance = drizzle(dbUrl, { relations });
+export const getDBInstance = () => dbInstance;
 
-export type DB = ReturnType<typeof createDBInstance>;
+export type DB = typeof dbInstance;

@@ -25,8 +25,7 @@ export const Post = ({ slug, title, createdAt, content }: Props) => {
         <Link
           {...stylex.props(styles.link)}
           prefetch="intent"
-          // to={href("/blog/:slug/edit", { slug })}
-          to="/" // TODO: 編集ページのリンクを追加する
+          to={href("/blog/:slug/edit", { slug })}
         >
           [edit]
         </Link>

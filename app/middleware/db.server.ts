@@ -3,7 +3,7 @@ import {
   unstable_RouterContextProvider,
   type unstable_MiddlewareFunction,
 } from "react-router";
-import { createDBInstance, type DB } from "~/db/create-db-instance";
+import { getDBInstance, type DB } from "~/db/get-db-instance";
 
 /** コンテキスト */
 const dbContext = unstable_createContext<DB | null>();
@@ -12,7 +12,7 @@ const dbContext = unstable_createContext<DB | null>();
 export const getDB = (context: unstable_RouterContextProvider) => {
   let db = context.get(dbContext);
   if (!db) {
-    db = createDBInstance();
+    db = getDBInstance();
     if (!db) throw new Error("faild to get db instance");
     context.set(dbContext, db);
   }

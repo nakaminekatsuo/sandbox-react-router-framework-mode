@@ -12,10 +12,12 @@ import type { Route } from "./+types/root";
 import { envMiddleware } from "./middleware/env.server";
 import { logRequestDurationMiddleware } from "./middleware/logRequestDuration";
 import { RootLayout } from "./domain/layout/root-layout";
+import { dbMiddleware } from "./middleware/db.server";
 
 export const unstable_middleware = [
   logRequestDurationMiddleware,
   envMiddleware,
+  dbMiddleware,
 ];
 
 export const links: Route.LinksFunction = () => [

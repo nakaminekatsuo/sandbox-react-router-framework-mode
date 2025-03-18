@@ -5,7 +5,8 @@ import React from "react";
 import { color, space, thickness } from "~/lib/stylex/tokens.stylex";
 import { Post } from "./_post";
 import { Link } from "react-router";
-import { getDB } from "~/db/getDB";
+import { createDBInstance } from "~/db/create-db-instance";
+import { getDB } from "~/middleware/db.server";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -14,8 +15,8 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({}: Route.LoaderArgs) {
-  const db = getDB();
+export async function loader({ context }: Route.LoaderArgs) {
+  const db = getDB(context);
   const posts = await db.query.posts.findMany({
     columns: {
       slug: true,

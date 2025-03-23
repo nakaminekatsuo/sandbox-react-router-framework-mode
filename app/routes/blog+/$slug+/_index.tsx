@@ -5,7 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { getDB } from "~/middleware/db.server";
 import { Post } from "../_post";
 import { color, space } from "~/lib/stylex/tokens.stylex";
-import { DeletePostButton } from "~/routes/_delete-post-button";
+import { DeletePostButton } from "../_delete-post-button";
 
 export function meta({ params }: Route.MetaArgs) {
   return [

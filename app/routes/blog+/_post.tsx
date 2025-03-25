@@ -7,8 +7,15 @@ type Props = {
   title: string;
   createdAt: Date;
   content: string;
+  totalCommentsCount?: number;
 };
-export const Post = ({ slug, title, createdAt, content }: Props) => {
+export const Post = ({
+  slug,
+  title,
+  createdAt,
+  content,
+  totalCommentsCount,
+}: Props) => {
   return (
     <div {...stylex.props(styles.root)}>
       <h3 {...stylex.props(styles.title)}>
@@ -22,6 +29,7 @@ export const Post = ({ slug, title, createdAt, content }: Props) => {
       </h3>
       <div {...stylex.props(styles.infoPart)}>
         <p {...stylex.props(styles.createdAt)}>{createdAt.toDateString()}</p>
+        <span>[comments: {totalCommentsCount ?? 0}]</span>
         <Link
           {...stylex.props(styles.link)}
           prefetch="intent"

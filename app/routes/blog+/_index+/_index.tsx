@@ -5,8 +5,9 @@ import React from "react";
 import { color, space, thickness } from "~/lib/stylex/tokens.stylex";
 import { Post } from "../_post";
 import { Link } from "react-router";
-import { getDBInstance } from "~/db/get-db-instance";
 import { getDB } from "~/middleware/db.server";
+import { comments } from "~/db/schema/comments";
+import { eq } from "drizzle-orm";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -23,6 +24,10 @@ export async function loader({ context }: Route.LoaderArgs) {
       title: true,
       content: true,
       createdAt: true,
+    },
+    extras: {
+      totalCommentsCount: (table) =>
+        db.$count(comments, eq(table.id, comments.postId)),
     },
   });
   return {

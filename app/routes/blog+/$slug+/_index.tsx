@@ -6,6 +6,9 @@ import { getDB } from "~/middleware/db.server";
 import { Post } from "../_post";
 import { color, space } from "~/lib/stylex/tokens.stylex";
 import { DeletePostButton } from "../_delete-post-button";
+import { CommentForm } from "../_resources+/$slug.comment.new";
+import { comments } from "~/db/schema/comments";
+import { eq } from "drizzle-orm";
 
 export function meta({ params }: Route.MetaArgs) {
   return [
@@ -24,6 +27,19 @@ export async function loader({ params, context }: Route.LoaderArgs) {
         content: true,
         createdAt: true,
       },
+      with: {
+        comments: {
+          columns: {
+            id: true,
+            content: true,
+            createdAt: true,
+          },
+        },
+      },
+      extras: {
+        totalCommentsCount: (table) =>
+          db.$count(comments, eq(table.id, comments.postId)),
+      },
       where: {
         slug: params.slug,
       },
@@ -38,7 +54,7 @@ export async function loader({ params, context }: Route.LoaderArgs) {
   return { post };
 }
 
-export default function Page({ loaderData }: Route.ComponentProps) {
+export default function Page({ loaderData, params }: Route.ComponentProps) {
   return (
     <Main>
       <div {...stylex.props(styles.root)}>
@@ -52,6 +68,16 @@ export default function Page({ loaderData }: Route.ComponentProps) {
         </div>
         <Post {...loaderData.post} />
         <div {...stylex.props(styles.line)} />
+        <div>
+          <h3>Comments</h3>
+          {loaderData.post.comments.map((comment) => (
+            <div key={comment.id}>
+              <p>{comment.content}</p>
+              <p>{comment.createdAt.toDateString()}</p>
+            </div>
+          ))}
+          <CommentForm slug={params.slug} />
+        </div>
       </div>
     </Main>
   );

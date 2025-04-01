@@ -31,7 +31,7 @@ export async function action({ request, params, context }: Route.ActionArgs) {
 
 export const CommentForm = ({ slug }: { slug: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
-  const commentFetcher = useFetcher<Route.ComponentProps["actionData"]>();
+  const commentFetcher = useFetcher<typeof action>();
 
   // コメント投稿成功時にフォームをリセットする
   useEffect(() => {
@@ -39,7 +39,7 @@ export const CommentForm = ({ slug }: { slug: string }) => {
     if (commentFetcher.data?.success) {
       formRef.current?.reset();
     }
-  }, [commentFetcher.state, commentFetcher?.data?.success]);
+  }, [commentFetcher.state, commentFetcher.data?.success]);
   return (
     <commentFetcher.Form
       ref={formRef}

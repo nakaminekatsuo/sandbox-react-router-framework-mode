@@ -63,7 +63,7 @@ const styles = stylex.create({
     gap: space.md,
   },
   title: {
-    margin: 0,
+    color: color.mainText,
   },
   line: {
     height: thickness.xxs,

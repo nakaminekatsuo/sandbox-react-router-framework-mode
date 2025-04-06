@@ -1,6 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import { reverse } from "dns";
-import { on } from "events";
 
 // TODO:AIが適当に吐き出したものなので後できちんと定義すること
 export const color = stylex.defineVars({

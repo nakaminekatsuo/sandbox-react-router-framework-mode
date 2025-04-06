@@ -29,7 +29,9 @@ export const Post = ({
       </h3>
       <div {...stylex.props(styles.infoPart)}>
         <p {...stylex.props(styles.createdAt)}>{createdAt.toDateString()}</p>
-        <span>[comments: {totalCommentsCount ?? 0}]</span>
+        <span {...stylex.props(styles.comment)}>
+          [comments: {totalCommentsCount ?? 0}]
+        </span>
         <Link
           {...stylex.props(styles.link)}
           prefetch="intent"
@@ -50,24 +52,22 @@ const styles = stylex.create({
     gap: space.xs,
   },
   title: {
-    margin: 0,
     color: color.lightPrimary,
   },
   createdAt: {
-    margin: 0,
     color: color.mainText,
   },
   content: {
-    margin: 0,
+    color: color.subText,
+  },
+  comment: {
     color: color.subText,
   },
   transparentLink: {
-    margin: 0,
     color: "inherit",
     textDecorationColor: color.lightPrimary,
   },
   link: {
-    margin: 0,
     color: color.secondary,
     textDecorationColor: color.secondary,
   },

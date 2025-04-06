@@ -78,8 +78,12 @@ const TextFieldStyles = stylex.create({
     flexDirection: "column",
     alignItems: "flex-start",
   },
-  label: {},
-  input: {},
+  label: {
+    color: color.subText,
+  },
+  input: {
+    color: color.mainText,
+  },
   description: {
     color: color.subText,
     fontSize: textSize.sm,

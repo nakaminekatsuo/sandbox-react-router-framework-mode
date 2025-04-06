@@ -59,7 +59,7 @@ export default function Page({ loaderData, params }: Route.ComponentProps) {
     <Main>
       <div {...stylex.props(styles.root)}>
         <div>
-          <h2 {...stylex.props(styles.title)}>Create Post</h2>
+          <h2 {...stylex.props(styles.title)}>Post</h2>
           <div {...stylex.props(styles.actionBlock)}>
             <Link to={href("/blog")}>back</Link>
             <DeletePostButton slug={loaderData.post.slug} />
@@ -89,7 +89,7 @@ const styles = stylex.create({
     gap: space.md,
   },
   title: {
-    margin: 0,
+    color: color.mainText,
   },
   line: {
     height: 1,

@@ -1,13 +1,14 @@
 import * as stylex from "@stylexjs/stylex";
-import type { Route } from "./+types/_index";
+import type { Route } from "./+types/route";
 import { Main } from "~/domain/layout/main";
 import React from "react";
 import { color, space, thickness } from "~/lib/stylex/tokens.stylex";
-import { Post } from "../_post";
+import { Post } from "../post";
 import { Link } from "react-router";
 import { getDB } from "~/middleware/db.server";
 import { comments } from "~/db/schema/comments";
 import { eq } from "drizzle-orm";
+import { href } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -41,7 +42,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
       <div {...stylex.props(styles.root)}>
         <div>
           <h2 {...stylex.props(styles.title)}>Blog</h2>
-          <Link to="/blog/new">New post</Link>
+          <Link to={href("/blog/create")}>Create Post</Link>
           <div {...stylex.props(styles.line)} />
         </div>
         {loaderData.posts.map((post) => (

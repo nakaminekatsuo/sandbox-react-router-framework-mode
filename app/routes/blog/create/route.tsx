@@ -1,19 +1,11 @@
 import { Main } from "~/domain/layout/main";
-import type { Route } from "./+types/_index";
-import { data, Form, href, Link, redirect } from "react-router";
-import {
-  Button,
-  FieldError,
-  Input,
-  Label,
-  Text,
-  TextField,
-} from "react-aria-components";
+import type { Route } from "../new/+types/route";
+import { data, href, Link, redirect } from "react-router";
 import * as stylex from "@stylexjs/stylex";
-import { color, space, textSize } from "~/lib/stylex/tokens.stylex";
+import { color } from "~/lib/stylex/tokens.stylex";
 import { getDB } from "~/middleware/db.server";
 import { posts } from "~/db/schema/posts";
-import { EditPostForm } from "../_edit-post-form";
+import { EditPostForm } from "../edit-post-form";
 
 export function meta({}: Route.MetaArgs) {
   return [

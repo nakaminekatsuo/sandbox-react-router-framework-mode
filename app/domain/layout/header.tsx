@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "react-router";
 import { color, space, textSize } from "~/lib/stylex/tokens.stylex";
+import { ToggleThemeButton } from "~/routes/_resouces+/toggleTheme";
 
 export const Header = () => {
   return (
@@ -8,6 +9,7 @@ export const Header = () => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <h1 {...stylex.props(styles.title)}>header</h1>
       </Link>
+      <ToggleThemeButton />
     </header>
   );
 };

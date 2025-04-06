@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteLoaderData,
 } from "react-router";
 
 import "./app.css";
@@ -13,6 +14,8 @@ import { envMiddleware } from "./middleware/env.server";
 import { logRequestDurationMiddleware } from "./middleware/logRequestDuration";
 import { RootLayout } from "./domain/layout/root-layout";
 import { dbMiddleware } from "./middleware/db.server";
+import { prefs } from "./session/prefs.server";
+import type { W } from "node_modules/react-router/dist/development/fog-of-war-Da8gpnoZ.mjs";
 
 export const unstable_middleware = [
   logRequestDurationMiddleware,
@@ -33,6 +36,22 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookieHeader = request.headers.get("Cookie");
+  const cookie = (await prefs.parse(cookieHeader)) || {};
+  return {
+    theme: cookie.theme,
+  };
+}
+
+export const useRootLoaderData = () => {
+  const rootData = useRouteLoaderData<typeof loader>("root");
+  if (!rootData) {
+    throw new Error("Root loader data not found");
+  }
+  return rootData;
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -51,9 +70,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+export default function App({ loaderData }: Route.ComponentProps) {
   return (
-    <RootLayout>
+    <RootLayout theme={loaderData.theme ?? "system"}>
       <Outlet />
     </RootLayout>
   );

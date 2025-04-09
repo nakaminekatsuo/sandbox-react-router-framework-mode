@@ -1,12 +1,14 @@
 import { Main } from "~/domain/layout/main";
-import type { Route } from "./+types/route";
-import { data, href, Link, redirect } from "react-router";
+import type { Route } from "./+types/_route";
+import { data, href, Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { getDB } from "~/middleware/db.server";
+import { Post } from "../post";
 import { color, space } from "~/lib/stylex/tokens.stylex";
-import { EditPostForm } from "../edit-post-form";
-import { posts } from "~/db/schema/posts";
+import { DeletePostButton } from "./delete-post-button";
+import { comments } from "~/db/schema/comments";
 import { eq } from "drizzle-orm";
+import { CommentForm } from "~/routes/blog._resources+/$slug.comment.new";
 
 export function meta({ params }: Route.MetaArgs) {
   return [
@@ -25,6 +27,19 @@ export async function loader({ params, context }: Route.LoaderArgs) {
         content: true,
         createdAt: true,
       },
+      with: {
+        comments: {
+          columns: {
+            id: true,
+            content: true,
+            createdAt: true,
+          },
+        },
+      },
+      extras: {
+        totalCommentsCount: (table) =>
+          db.$count(comments, eq(table.id, comments.postId)),
+      },
       where: {
         slug: params.slug,
       },
@@ -39,20 +54,30 @@ export async function loader({ params, context }: Route.LoaderArgs) {
   return { post };
 }
 
-export default function Page({ loaderData, actionData }: Route.ComponentProps) {
+export default function Page({ loaderData, params }: Route.ComponentProps) {
   return (
     <Main>
       <div {...stylex.props(styles.root)}>
         <div>
-          <h2 {...stylex.props(styles.title)}>Edit Post</h2>
-          <Link to={href("/blog")}>back</Link>
+          <h2 {...stylex.props(styles.title)}>Post</h2>
+          <div {...stylex.props(styles.actionBlock)}>
+            <Link to={href("/blog")}>back</Link>
+            <DeletePostButton slug={loaderData.post.slug} />
+          </div>
           <div {...stylex.props(styles.line)} />
         </div>
-        <EditPostForm
-          defaultValues={loaderData.post}
-          errors={actionData?.errors}
-        />
+        <Post {...loaderData.post} />
         <div {...stylex.props(styles.line)} />
+        <div>
+          <h3>Comments</h3>
+          {loaderData.post.comments.map((comment) => (
+            <div key={comment.id}>
+              <p>{comment.content}</p>
+              <p>{comment.createdAt.toDateString()}</p>
+            </div>
+          ))}
+          <CommentForm slug={params.slug} />
+        </div>
       </div>
     </Main>
   );
@@ -71,35 +96,8 @@ const styles = stylex.create({
     width: "100%",
     backgroundColor: color.line,
   },
+  actionBlock: {
+    display: "flex",
+    gap: space.sm,
+  },
 });
-
-export async function action({ request, params, context }: Route.ActionArgs) {
-  const formData = await request.formData();
-  const title = String(formData.get("title"));
-  const content = String(formData.get("content"));
-
-  if (!title || !content) {
-    return data(
-      {
-        errors: {
-          title: !title ? "タイトルを入力してください" : undefined,
-          content: !content ? "コンテンツを入力してください" : undefined,
-        },
-      },
-      400
-    );
-  }
-
-  const db = getDB(context);
-  const result = await db
-    .update(posts)
-    .set({
-      title,
-      content,
-    })
-    .where(eq(posts.slug, params.slug));
-  if (result?.length === 0) {
-    return data(null, 400);
-  }
-  return redirect(href("/blog/:slug", { slug: params.slug }));
-}

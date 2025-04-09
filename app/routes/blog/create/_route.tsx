@@ -1,5 +1,5 @@
 import { Main } from "~/domain/layout/main";
-import type { Route } from "../new/+types/route";
+import type { Route } from "./+types/_route";
 import { data, href, Link, redirect } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { color } from "~/lib/stylex/tokens.stylex";

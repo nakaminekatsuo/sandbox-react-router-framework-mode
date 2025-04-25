@@ -1,28 +1,9 @@
 import * as stylex from "@stylexjs/stylex";
 
-// TODO:AIが適当に吐き出したものなので後できちんと定義すること
 export const color = stylex.defineVars({
-  // theme
-  background: "light-dark(#ffffff, #000000)",
   primary: "#1e40af",
-  lightPrimary: "#3b82f6",
-  darkPrimary: "#1e3a8a",
-  onPrimary: "#ffffff",
-  secondary: "#f59e0b",
-  onSecondary: "#000000",
-  line: "light-dark(#d1d5db, #374151)",
-  // common
-  error: "#ef4444",
-  onError: "#ffffff",
-  warning: "#f59e0b",
-  onWarning: "#000000",
-  success: "#10b981",
-  onSuccess: "#ffffff",
-  // text
-  mainText: "light-dark(#1f2937, #f9fafb)",
-  subText: "light-dark(#4b5563, #d1d5db)",
-  // accecibility
-  focusRing: "rgba(66, 153, 225, 0.6)",
+  background: "light-dark(#ffffff, #000000)",
+  foreground: "light-dark(#1f2937, #f9fafb)",
 });
 
 export const textSize = stylex.defineVars({

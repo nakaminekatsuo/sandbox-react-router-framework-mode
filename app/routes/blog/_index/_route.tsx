@@ -63,10 +63,10 @@ const styles = stylex.create({
     gap: space.md,
   },
   title: {
-    color: color.mainText,
+    color: color.foreground,
   },
   line: {
     height: thickness.xxs,
-    backgroundColor: color.line,
+    backgroundColor: color.foreground,
   },
 });

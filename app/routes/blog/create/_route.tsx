@@ -31,7 +31,7 @@ const styles = stylex.create({
   },
   line: {
     height: 1,
-    backgroundColor: color.line,
+    backgroundColor: color.foreground,
   },
 });
 

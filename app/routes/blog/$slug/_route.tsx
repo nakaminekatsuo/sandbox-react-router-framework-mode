@@ -4,11 +4,11 @@ import { data, href, Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import { getDB } from "~/middleware/db.server";
 import { Post } from "../post";
-import { color, space } from "~/lib/stylex/tokens.stylex";
+import { color, space, textSize } from "~/lib/stylex/tokens.stylex";
 import { DeletePostButton } from "./delete-post-button";
 import { comments } from "~/db/schema/comments";
 import { eq } from "drizzle-orm";
-import { CommentForm } from "~/routes/blog._resources+/$slug.comment.new";
+import { CommentForm } from "~/routes/blog._resources+/$slug.comment.new/comment-form";
 
 export function meta({ params }: Route.MetaArgs) {
   return [
@@ -68,12 +68,12 @@ export default function Page({ loaderData, params }: Route.ComponentProps) {
         </div>
         <Post {...loaderData.post} />
         <div {...stylex.props(styles.line)} />
-        <div>
-          <h3>Comments</h3>
+        <div {...stylex.props(commentsStyles.root)}>
+          <h3 {...stylex.props(commentsStyles.heading)}>Comments</h3>
           {loaderData.post.comments.map((comment) => (
             <div key={comment.id}>
-              <p>{comment.content}</p>
-              <p>{comment.createdAt.toDateString()}</p>
+              <p {...stylex.props(commentsStyles.commentLabel)}>{comment.content}</p>
+              <p {...stylex.props(commentsStyles.createdAtLabel)}>{comment.createdAt.toDateString()}</p>
             </div>
           ))}
           <CommentForm slug={params.slug} />
@@ -89,15 +89,35 @@ const styles = stylex.create({
     gap: space.md,
   },
   title: {
-    color: color.mainText,
+    color: color.foreground,
   },
   line: {
     height: 1,
     width: "100%",
-    backgroundColor: color.line,
+    backgroundColor: color.foreground,
   },
   actionBlock: {
     display: "flex",
     gap: space.sm,
   },
 });
+
+const commentsStyles = stylex.create({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: space.md,
+  },
+  heading: {
+    fontSize: textSize.lg,
+    color: color.foreground
+  },
+  commentLabel: {
+    fontSize: textSize.md,
+    color: color.foreground
+  },
+  createdAtLabel: {
+    fontSize: textSize.xs,
+    color: color.foreground
+  },
+})

@@ -52,24 +52,24 @@ const styles = stylex.create({
     gap: space.xs,
   },
   title: {
-    color: color.lightPrimary,
+    color: color.foreground,
   },
   createdAt: {
-    color: color.mainText,
+    color: color.foreground,
   },
   content: {
-    color: color.subText,
+    color: color.foreground,
   },
   comment: {
-    color: color.subText,
+    color: color.foreground,
   },
   transparentLink: {
-    color: "inherit",
-    textDecorationColor: color.lightPrimary,
+    color: color.primary,
+    textDecorationColor: color.primary,
   },
   link: {
-    color: color.secondary,
-    textDecorationColor: color.secondary,
+    color: color.foreground,
+    textDecorationColor: color.foreground,
   },
   infoPart: {
     display: "flex",

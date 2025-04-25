@@ -1,5 +1,5 @@
 import { href, redirect } from "react-router";
-import type { Route } from "./+types/$slug.delete";
+import type { Route } from "./+types/_routes"
 import { getDB } from "~/middleware/db.server";
 import { posts } from "~/db/schema/posts";
 import { eq } from "drizzle-orm";

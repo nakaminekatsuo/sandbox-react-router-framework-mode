@@ -79,17 +79,16 @@ const TextFieldStyles = stylex.create({
     alignItems: "flex-start",
   },
   label: {
-    color: color.subText,
+    color: color.foreground,
   },
   input: {
-    color: color.mainText,
+    color: color.foreground,
   },
   description: {
-    color: color.subText,
+    color: color.foreground,
     fontSize: textSize.sm,
   },
   fieldError: {
-    color: color.error,
     fontSize: textSize.sm,
   },
 });

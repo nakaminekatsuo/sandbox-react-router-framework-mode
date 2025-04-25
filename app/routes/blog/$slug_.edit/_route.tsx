@@ -64,12 +64,12 @@ const styles = stylex.create({
     gap: space.md,
   },
   title: {
-    color: color.mainText,
+    color: color.foreground,
   },
   line: {
     height: 1,
     width: "100%",
-    backgroundColor: color.line,
+    backgroundColor: color.foreground,
   },
 });
 

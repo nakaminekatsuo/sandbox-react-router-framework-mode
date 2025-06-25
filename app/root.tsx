@@ -15,7 +15,6 @@ import { logRequestDurationMiddleware } from "./middleware/logRequestDuration";
 import { RootLayout } from "./domain/layout/root-layout";
 import { dbMiddleware } from "./middleware/db.server";
 import { prefs } from "./session/prefs.server";
-import type { W } from "node_modules/react-router/dist/development/fog-of-war-Da8gpnoZ.mjs";
 
 export const unstable_middleware = [
   logRequestDurationMiddleware,
